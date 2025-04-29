@@ -2,6 +2,15 @@ import os
 import requests as req
 
 if __name__ == "__main__":
+    # Manga Storage:
+    manga_folder = "mangaPages"
+    os.makedirs(manga_folder, exist_ok=True)
+    # Iterate over all files in the mangaPages folder and delete .jpg files
+    for file_name in os.listdir(manga_folder):
+        if file_name.endswith(".jpg"):
+            os.remove(os.path.join(manga_folder, file_name))
+            print(f"Deleted {file_name}")
+
     reponse = req.get("https://rawkuma.net/noa-senpai-wa-tomodachi-chapter-56/")
     # with open("rawkuma.html", "w", encoding="utf-8") as file:
     #     file.write(reponse.text)
@@ -16,10 +25,10 @@ if __name__ == "__main__":
     parts = parts[1:]
     # cleaning the img urls
     parts = [a.split("'")[1] for a in parts]
-    
+
     for i, a in enumerate(parts):
         image_data = req.get(a).content
-        filepath = os.path.join("mangaPages", f"{i+1}.jpg")
+        filepath = os.path.join(manga_folder, f"{i}.jpg")
         with open(filepath, "wb") as file:
             file.write(image_data)
-        print(f"Image {i+1} saved as {filepath}")
+        print(f"Image {i} saved as {filepath}")
