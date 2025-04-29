@@ -18,5 +18,7 @@ if __name__ == "__main__":
     parts = [a[:-2] for a in parts]
 
     for i,a in enumerate(parts):
-        print(f"\n\nfile {i}")
-        print(a + "\n\n")
+        with open(f"{i+1}.jpg", "wb") as file:
+            image = req.get(a).content
+            file.write(image)
+            print(f"Image {i+1} saved as {i+1}.jpg")
