@@ -1,34 +1,12 @@
 import os
 import requests as req
+from rawKumaImgScrape import imgScrape as rawKuma
 
 if __name__ == "__main__":
-    # Manga Storage:
-    manga_folder = "mangaPages"
-    os.makedirs(manga_folder, exist_ok=True)
-    # Iterate over all files in the mangaPages folder and delete .jpg files
-    for file_name in os.listdir(manga_folder):
-        if file_name.endswith(".jpg"):
-            os.remove(os.path.join(manga_folder, file_name))
-            print(f"Deleted {file_name}")
-
-    reponse = req.get("https://rawkuma.net/noa-senpai-wa-tomodachi-chapter-56/")
-    # with open("rawkuma.html", "w", encoding="utf-8") as file:
-    #     file.write(reponse.text)
-    
-    # print("File saved as rawkuma.html")  
-    parts = reponse.text.split("noscript")[1]
-    # Cleaning the front end
-    parts = parts[4:]
-    # Cleaning the back end
-    parts = parts[:-6]
-    parts = parts.split("<img src=")
-    parts = parts[1:]
-    # cleaning the img urls
-    parts = [a.split("'")[1] for a in parts]
-
-    for i, a in enumerate(parts):
-        image_data = req.get(a).content
-        filepath = os.path.join(manga_folder, f"{i}.jpg")
-        with open(filepath, "wb") as file:
-            file.write(image_data)
-        print(f"Image {i} saved as {filepath}")
+    print()
+    print("Welcome to the RawKuma Image Scraper!")
+    print("This program will download all images from a given manga chapter URL.")
+    print("Please enter the URL of the manga chapter you want to download images from:")
+    source_url = input("URL: ")
+    print("Downloading images...")
+    rawKuma(source_url)
