@@ -1,5 +1,3 @@
-import os
-import requests as req
 from rawKumaImgScrape import imgScrape as rawKuma
 
 if __name__ == "__main__":
@@ -10,3 +8,5 @@ if __name__ == "__main__":
     source_url = input("URL: ")
     print("Downloading images...")
     rawKuma(source_url)
+
+    

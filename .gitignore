@@ -178,3 +178,8 @@ cython_debug/
 
 # jpg gone
 *.jpg
+
+# From bubbleblaster
+*.zip
+*.ico
+*.png
