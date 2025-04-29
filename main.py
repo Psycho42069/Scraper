@@ -1,3 +1,4 @@
+import os
 import requests as req
 
 if __name__ == "__main__":
@@ -13,12 +14,12 @@ if __name__ == "__main__":
     parts = parts[:-6]
     parts = parts.split("<img src=")
     parts = parts[1:]
-    # Cleaning the string
-    parts = [a[1:] for a in parts]
-    parts = [a[:-2] for a in parts]
-
-    for i,a in enumerate(parts):
-        with open(f"{i+1}.jpg", "wb") as file:
-            image = req.get(a).content
-            file.write(image)
-            print(f"Image {i+1} saved as {i+1}.jpg")
+    # cleaning the img urls
+    parts = [a.split("'")[1] for a in parts]
+    
+    for i, a in enumerate(parts):
+        image_data = req.get(a).content
+        filepath = os.path.join("mangaPages", f"{i+1}.jpg")
+        with open(filepath, "wb") as file:
+            file.write(image_data)
+        print(f"Image {i+1} saved as {filepath}")
